@@ -2,13 +2,16 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import questions from "./Question.json";
 import classNames from "classnames"
+import "./App.css"
 
 function App() {
   let [questionNumber, setQuestionNumber] = useState(0);
   const [question, setQuestion] = useState(() => questions[questionNumber]);
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSelect, setIsSelect] = useState(false);
-
+  const [isDone, setIsDone] =useState(false);
+  const [answerQ, setAnswerQ]= useState();
+  const [active, setActive] = useState();
   useEffect(() => {
     setQuestion(questions[questionNumber]);
   }, [questionNumber]);
@@ -17,30 +20,44 @@ function App() {
     setIsSelect(false)
     setIsCorrect(false)
     setQuestionNumber((questionNumber += 1));
+    setActive(null)
+    setIsDone(false);
    
   };
 
-  const checkAnswer = (answer) => {
+  const checkAnswer = (answer, index) => {
     console.log("answer", answer);
     setIsSelect(true);
     if (answer === question.correct_answer) {
       setIsCorrect(true);
-      // correctClass()
+      setIsDone(true);
+      setAnswerQ(question.correct_answer)
     } else {
       setIsCorrect(false);
+      setIsDone(true);
+      setActive(index)
+      setAnswerQ(question.correct_answer)
     }
   };
 
   // useEffect(() => {
   //   correctClass()
   // }, [isCorrect])
-
+  const getAnswer = (answer)=>{
+    if(answer === question.correct_answer){
+      setIsDone(true);
+      return 'correct'
+    }
+    setIsDone(true);
+    return 'incorrect'
+  }
   const correctClass = () => {
     if (isCorrect) {
       return "bg-green-400"
     }
     return ""
   }
+  console.log(isDone);
 
   return (
     <div className="App grid grid-cols-6">
@@ -67,8 +84,13 @@ function App() {
               return (
                 <button
                   key={index}
-                  className={classNames('answer-button answer-button  p-2 rounded-md bg-gray-400 hover:bg-gray-500 font-medium text-lg mb-5 border-black border w-2/5', correctClass())}
-                  onClick={() => checkAnswer(answer)}
+                  className=
+                  {
+                    `btn__style
+                    ${isDone === true  && answer === answerQ  ? 'correct' : isDone  === true && answer !==answerQ && index === active ? 'incorrect':'disable' } `
+                  }
+                  disabled={isDone === true }
+                  onClick={() => checkAnswer(answer, index)}
                 >
                   {answer}
                 </button>

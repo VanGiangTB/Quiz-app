@@ -1,0 +1,18 @@
+
+.btn__style{
+    background-color: #c4c4c4;
+    padding: 10px 10px;
+    width: 45%;
+    margin: 10px 0px;
+
+}
+.btn__style.correct{
+    background-color: green;
+}
+.btn__style.incorrect{
+    background-color: red;
+}
+button:disabled {
+    opacity: 0.9;
+    background-color: rgb(161, 158, 158);
+}
