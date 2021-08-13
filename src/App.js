@@ -1,28 +1,27 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import questions from "./Question.json";
-import classNames from "classnames"
-import "./App.css"
+import classNames from "classnames";
+import "./App.css";
 
 function App() {
   let [questionNumber, setQuestionNumber] = useState(0);
   const [question, setQuestion] = useState(() => questions[questionNumber]);
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSelect, setIsSelect] = useState(false);
-  const [isDone, setIsDone] =useState(false);
-  const [answerQ, setAnswerQ]= useState();
+  const [isDone, setIsDone] = useState(false);
+  const [answerQ, setAnswerQ] = useState();
   const [active, setActive] = useState();
   useEffect(() => {
     setQuestion(questions[questionNumber]);
   }, [questionNumber]);
 
   const handleNext = () => {
-    setIsSelect(false)
-    setIsCorrect(false)
+    setIsSelect(false);
+    setIsCorrect(false);
     setQuestionNumber((questionNumber += 1));
-    setActive(null)
+    setActive(null);
     setIsDone(false);
-   
   };
 
   const checkAnswer = (answer, index) => {
@@ -31,32 +30,32 @@ function App() {
     if (answer === question.correct_answer) {
       setIsCorrect(true);
       setIsDone(true);
-      setAnswerQ(question.correct_answer)
+      setAnswerQ(question.correct_answer);
     } else {
       setIsCorrect(false);
       setIsDone(true);
-      setActive(index)
-      setAnswerQ(question.correct_answer)
+      setActive(index);
+      setAnswerQ(question.correct_answer);
     }
   };
 
   // useEffect(() => {
   //   correctClass()
   // }, [isCorrect])
-  const getAnswer = (answer)=>{
-    if(answer === question.correct_answer){
+  const getAnswer = (answer) => {
+    if (answer === question.correct_answer) {
       setIsDone(true);
-      return 'correct'
+      return "correct";
     }
     setIsDone(true);
-    return 'incorrect'
-  }
+    return "incorrect";
+  };
   const correctClass = () => {
     if (isCorrect) {
-      return "bg-green-400"
+      return "bg-green-400";
     }
-    return ""
-  }
+    return "";
+  };
   console.log(isDone);
 
   return (
@@ -84,12 +83,15 @@ function App() {
               return (
                 <button
                   key={index}
-                  className=
-                  {
-                    `btn__style
-                    ${isDone === true  && answer === answerQ  ? 'correct' : isDone  === true && answer !==answerQ && index === active ? 'incorrect':'disable' } `
-                  }
-                  disabled={isDone === true }
+                  className={`btn__style
+            ${
+              isDone === true && answer === answerQ
+                ? "correct"
+                : isDone === true && answer !== answerQ && index === active
+                ? "incorrect"
+                : "disable"
+            } `}
+                  disabled={isDone === true}
                   onClick={() => checkAnswer(answer, index)}
                 >
                   {answer}
@@ -105,7 +107,7 @@ function App() {
             </p>
             <div className="flex justify-center mt-2">
               <button
-                className="px-7 py-2 rounded-md bg-gray-400 text-lg font-medium border border-black"
+                className="px-7 py-2 rounded-md bg-gray-400 hover:bg-gray-500 text-lg font-medium border border-black"
                 onClick={handleNext}
               >
                 Next Question
@@ -113,6 +115,16 @@ function App() {
             </div>
           </>
         )}
+        <div className="score-wrapper ">
+          <div className=''>
+          <div className="score-bar-data flex justify-between">
+            <p className="user-score text-xl"> Score: 0%</p>
+            <p className="max-score text-xl"> Score: 100%</p>
+          </div>
+          <div className="score-bar-wrapper w-full  bg-gray-300 border border-black h-7 rounded-lg items-center"></div>
+          </div>
+          
+        </div>
       </div>
     </div>
   );
