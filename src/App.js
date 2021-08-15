@@ -18,9 +18,6 @@ function App() {
   let [widthScore, setWidthScore] = useState({ width: "auto" });
   const [correctAnswer, setCorrectAnswer] = useState([]);
 
-  // Tạo ra 1 state là 1 mảng chứa các câu đúng, giá trị ban đaafu là []
-  // Mỗi lần ng dùng chọn đáp án, nếu đáp án đó đúng thì push vào mảng chứa các câu đúng
-  // css: width * length của mảng chứa các câu đúng
 
   useEffect(() => {
     if (questionNumber >= questions.length) return;
