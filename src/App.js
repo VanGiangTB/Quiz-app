@@ -23,7 +23,7 @@ function App() {
     if (questionNumber >= questions.length) return;
     setQuestion(questions[questionNumber]);
     setWidthProgressBar();
-    setWidthScoreBar();
+    // setWidthScoreBar();
   }, [questionNumber]);
 
   const handleNext = () => {
@@ -38,15 +38,14 @@ function App() {
     setIsSelect(true);
 
     if (answer === question.correct_answer) {
+      // tạo 1 mảng mới cop mảng cũ và push cái mới vào
       const newCorrectAnswer = [...correctAnswer];
       newCorrectAnswer.push(question.correct_answer);
       setIsCorrect(true);
       setIsDone(true);
       setAnswerQ(question.correct_answer);
       setScore((score += 5));
-      setWidthScore();
       setCorrectAnswer(newCorrectAnswer);
-      console.log(correctAnswer.length);
     } else {
       setIsCorrect(false);
       setIsDone(true);
@@ -54,6 +53,10 @@ function App() {
       setAnswerQ(question.correct_answer);
     }
   };
+
+  useEffect(() => {
+    setWidthScoreBar();
+  }, [correctAnswer])
 
   const setWidthProgressBar = () => {
     const width =
@@ -64,7 +67,7 @@ function App() {
     const width =
       document.querySelector(".score-bar-wrapper").offsetWidth /
       questions.length;
-    setWidthScore({ width: `${width * (correctAnswer.length + 1)}px` });
+    setWidthScore({ width: `${width * (correctAnswer.length)}px` });
   };
 
   return (
@@ -140,9 +143,9 @@ function App() {
                   <p className="max-score text-xl">Max Score: 100%</p>
                 </div>
                 <div className="">
-                  <div className=" score-bar-wrapper w-full  bg-gray-300 border border-black h-7 rounded-lg flex items-center">
+                  <div className="score-bar-wrapper w-full bg-gray-300 border border-black h-7 rounded-lg flex items-center">
                     <div
-                      style={{ widthScore }}
+                      style={widthScore}
                       className="bg-gray-700 h-7 rounded-lg"
                     ></div>
                   </div>
