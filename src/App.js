@@ -17,6 +17,7 @@ function App() {
   let [widthProgress, setWidthProgress] = useState({ width: "auto" });
   let [widthScore, setWidthScore] = useState({ width: "auto" });
   const [correctAnswer, setCorrectAnswer] = useState([]);
+  let [maxScore, setMaxScore] = useState(100)
 
 
   useEffect(() => {
@@ -51,6 +52,7 @@ function App() {
       setIsDone(true);
       setActive(index);
       setAnswerQ(question.correct_answer);
+      setMaxScore((maxScore -=5))
     }
   };
 
@@ -140,7 +142,7 @@ function App() {
               <div className="">
                 <div className=" score-bar-data flex justify-between">
                   <p className="user-score text-xl"> Score: {score}%</p>
-                  <p className="max-score text-xl">Max Score: 100%</p>
+                  <p className="max-score text-xl">Max Score: {maxScore}%</p>
                 </div>
                 <div className="">
                   <div className="score-bar-wrapper w-full bg-gray-300 border border-black h-7 rounded-lg flex items-center">
