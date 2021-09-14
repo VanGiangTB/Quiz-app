@@ -23,7 +23,7 @@ function App() {
     if (questionNumber >= questions.length) return;
     setQuestion(questions[questionNumber]);
     setWidthProgressBar();
-  }, [questionNumber]);
+  }, [questionNumber, setWidthProgressBar, setQuestion]);
 
   const handleNext = () => {
     setIsSelect(false);
@@ -56,7 +56,7 @@ function App() {
 
   useEffect(() => {
     setWidthScoreBar();
-  }, [correctAnswer])
+  }, [correctAnswer, setWidthScoreBar])
 
   const setWidthProgressBar = () => {
     const width =
