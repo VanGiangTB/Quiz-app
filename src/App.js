@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import questions from "./Question.json";
-import classNames from "classnames";
 import "./App.css";
 import Message from "./Message";
 
@@ -24,7 +23,6 @@ function App() {
     if (questionNumber >= questions.length) return;
     setQuestion(questions[questionNumber]);
     setWidthProgressBar();
-    // setWidthScoreBar();
   }, [questionNumber]);
 
   const handleNext = () => {
